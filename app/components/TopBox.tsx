@@ -13,6 +13,8 @@ const TopBox = () => {
           <div className="userDetails flex gap-4">
             <div className="userImg">
               <Image
+                width={100}
+                height={150}
                 src={user.img}
                 alt={user.username}
                 className="w-8 h-8 rounded-full object-cover"

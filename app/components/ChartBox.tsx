@@ -27,7 +27,7 @@ const ChartBox = ({
     <div className="flex justify-between text-lg h-full">
       <div className="flex flex-col justify-between flex-[3]">
         <div className="title flex items-center gap-1">
-          <Image src={icon} alt="" />
+          <Image width={25} height={25} src={icon} alt="" />
           <span className="text-sm">{title}</span>
         </div>
         <h2 className="text-2xl">{number}</h2>

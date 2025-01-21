@@ -3,7 +3,7 @@ module.exports = {
   images: {
     domains: [
       "next-admin-ui.vercel.app",
-      "images.unsplash.com",
+      "images.pexels.com",
       "cdn.example.com",
     ],
   },

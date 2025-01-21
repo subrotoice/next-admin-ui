@@ -16,7 +16,13 @@ const Menu = () => {
               key={submenuItem.id}
               className="listItem flex items-center px-1 py-1 rounded-lg transition ease-in duration-300 hover:bg-soft-bg"
             >
-              <Image src={submenuItem.icon} alt="" className="mr-2" />
+              <Image
+                width={20}
+                height={20}
+                src={submenuItem.icon}
+                alt=""
+                className="mr-2"
+              />
               <span className="listItemTitle text-sm hidden md:block">
                 {submenuItem.title}
               </span>
