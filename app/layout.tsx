@@ -28,7 +28,7 @@ export default function RootLayout({
         <main className="bg-main-bg text-main-color min-h-screen">
           <Navbar />
           <div className="flex">
-            <div className="menuContainer w-[220px] pl-4 py-2 border-r-2 border-soft-bg">
+            <div className="menuContainer w-max md:w-[200px] pl-4 py-2 border-r-2 border-soft-bg">
               <Menu />
             </div>
             <div className="contentContainer flex-1 px-4 py-2 overflow-hidden">
