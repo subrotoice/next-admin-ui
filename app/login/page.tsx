@@ -1,6 +1,48 @@
-import FormInput from "../components/FormInput";
+"use client";
+import { useState } from "react";
+import { LoginResponse } from "../types/user";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handelSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(email);
+    console.log(password);
+    setError(null);
+
+    try {
+      const response = await fetch("https://soms.gov.bd/backoffice/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to login");
+      }
+
+      const data: LoginResponse = await response.json();
+
+      if (data.success) {
+        localStorage.setItem("access_token", data.data.access_token);
+        localStorage.setItem("userName", data.data.user.name);
+        router.push("/dashboard"); // Redirect to dashboard
+        // console.log(data.data);
+      } else {
+        setError(data.message);
+      }
+    } catch (err: unknown) {
+      setError("An unexpected error occurred. Please try again." + err);
+    }
+  };
+
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -9,12 +51,39 @@ const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
-              <FormInput type="email" name="email" placeholder="Your email" />
-              <FormInput
+            <span className="text-red-600 text-sm font-medium">
+              {error && error}
+            </span>
+            <form className="space-y-4 md:space-y-6" onSubmit={handelSubmit}>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Your Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-0 text-sm"
+                placeholder="Your Email"
+                required
+              />
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Your Email
+              </label>
+              <input
                 type="password"
                 name="password"
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-0 text-sm"
                 placeholder="Password"
+                required
               />
 
               <div className="flex items-center justify-between">

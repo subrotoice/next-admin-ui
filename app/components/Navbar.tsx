@@ -1,4 +1,5 @@
 import Image from "next/image";
+import UserName from "./UserName";
 
 const Navbar = () => {
   return (
@@ -50,7 +51,7 @@ const Navbar = () => {
             height={25}
             className="rounded-full h-[25px] w-[25px] object-cover mr-2"
           />
-          <span>Subroto</span>
+          <UserName />
         </div>
         <Image
           width={25}
